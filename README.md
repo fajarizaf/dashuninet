@@ -1,6 +1,5 @@
 <div align="center">
 
-![Logo](public/assets/static/logo.svg)
 
 # DashUninet
 
