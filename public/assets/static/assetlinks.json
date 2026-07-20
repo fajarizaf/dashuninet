@@ -1,0 +1,26 @@
+[
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.uninet.umscustomerapp",
+        "sha256_cert_fingerprints": [
+          "24:F0:E5:8E:76:32:24:B4:F4:4D:A6:08:F5:D9:BF:90:C4:6B:E0:BA:CE:91:B0:C8:10:39:0F:55:72:94:42:2E"
+        ]
+      }
+    },
+    {
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.uninet.umscustomerapp",
+        "sha256_cert_fingerprints": [
+          "97:95:72:B3:40:34:87:E9:F3:BA:F2:74:F5:1F:53:DB:31:6F:00:9F:50:1B:88:28:A2:E9:D9:3F:76:05:17:4A"
+        ]
+      }
+    }
+]

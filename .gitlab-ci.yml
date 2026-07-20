@@ -1,0 +1,47 @@
+stages:
+  - deploy
+
+deploy-to-main:
+  image: "ruby:2.6.0"
+  stage: deploy
+  environment: main
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$D_SSH_KEY")
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - cp $M_SERVICE deploy.sh
+    - cat deploy.sh
+    - sed -i "s|REPOSITORY|${CI_REPOSITORY_URL}|g" "deploy.sh"
+    - cat deploy.sh
+    - scp deploy.sh gitlab-cd@202.145.0.11:/home/gitlab-cd
+    - ssh gitlab-cd@202.145.0.11 "sudo sh /home/gitlab-cd/deploy.sh"
+  only:
+    - main
+  tags:
+    - limputra
+
+stages:
+  - deploy
+
+deploy-to-staging:
+  image: "ruby:2.6.0"
+  stage: deploy
+  environment: staging
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$D_SSH_KEY")
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - cp $D_SERVICE deploy.sh
+    - cat deploy.sh
+    - sed -i "s|REPOSITORY|${CI_REPOSITORY_URL}|g" "deploy.sh"
+    - cat deploy.sh
+    - scp deploy.sh gitlab-cd@192.168.123.38:/home/gitlab-cd
+    - ssh gitlab-cd@192.168.123.38 "sudo sh /home/gitlab-cd/deploy.sh"
+  only:
+    - staging
+  tags:
+    - limputra
